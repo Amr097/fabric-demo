@@ -68,11 +68,13 @@ onMounted(async () => {
 
 const addText = () => {
   if (fabricCanvas) {
-    const newText = new fabric.Text(text.value, {
+    const newText = new fabric.Textbox(text.value, {
       left: 50,
       top: 1180,
       fill: 'black',
-      fontSize: 45
+      fontSize: 45,
+      width: 200,
+      splitByGrapheme: true // Ensure text wraps correctly
     })
     fabricCanvas.add(newText)
     isDisabled.value = false
