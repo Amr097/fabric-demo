@@ -113,15 +113,17 @@ const addText = () => {
     const left = screenWidth < 550 ? canvasWidth.value / 100 : canvasWidth.value / 100 + 50
     const top = screenWidth < 550 ? 415 : 465
     const width = screenWidth < 550 ? 75 : 100
+    const fontSize = screenWidth < 550 ? 17 : 35
 
     const newText = new fabric.Textbox(text.value, {
       left: left,
       top: top,
       fill: 'black',
-      fontSize: 35,
+      fontSize: fontSize,
       width: width,
       splitByGrapheme: true, // Ensure text wraps correctly
-      textAlign: 'center'
+      textAlign: 'center',
+      selectable: false
     })
     fabricCanvas.add(newText)
     isDisabled.value = false
