@@ -56,12 +56,12 @@ onMounted(async () => {
   //get screen width
   const screenWidth = window.innerWidth
 
-  canvasWidth.value = screenWidth < 500 ? screenWidth - 20 : 500
+  canvasWidth.value = screenWidth < 550 ? screenWidth - 20 : 550
 
   // Initialize Fabric.js canvas
   fabricCanvas = new fabric.Canvas(canvas.value, {
     width: canvasWidth.value,
-    height: 500,
+    height: 550,
     selection: false
   })
 
@@ -107,14 +107,19 @@ const addText = () => {
       fabricCanvas.remove(obj)
     })
 
-    const left = canvasWidth.value / 100
+    //get screen width
+    const screenWidth = window.innerWidth
+
+    const left = screenWidth < 550 ? canvasWidth.value / 100 : canvasWidth.value / 100 + 50
+    const top = screenWidth < 550 ? 415 : 465
+    const width = screenWidth < 550 ? 75 : 100
 
     const newText = new fabric.Textbox(text.value, {
       left: left,
-      top: 415,
+      top: top,
       fill: 'black',
       fontSize: 35,
-      width: 100,
+      width: width,
       splitByGrapheme: true, // Ensure text wraps correctly
       textAlign: 'center'
     })
