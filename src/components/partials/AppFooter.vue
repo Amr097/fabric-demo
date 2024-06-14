@@ -42,7 +42,7 @@ import TwitterIcon from '@/components/icons/TwitterIcon.vue'
     </div>
     <div class="footer__end">
       <div class="copyright">
-        <p class="copyright__p">ControlPoint © 2024 All Rights Reserved.</p>
+        <p class="copyright__p">lorem © 2024 All Rights Reserved.</p>
       </div>
       <ul class="links__list" role="list" aria-label="termsofuseandprivacypolicy">
         <li class="relative" role="listitem">
