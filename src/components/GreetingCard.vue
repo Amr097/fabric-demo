@@ -1,9 +1,12 @@
 <template>
-  <form @submit.prevent class="flex flex-col items-center justify-center sm:flex-row min-h-[100vh]">
+  <form
+    @submit.prevent
+    class="flex flex-col items-center mt-6 xl:mt-0 md:justify-center sm:justify-normal sm:flex-row"
+  >
     <canvas ref="canvas"></canvas>
 
     <div
-      class="flex flex-col gap-[1rem] items-center h-max py-[7.5rem] px-[2.4rem] rounded-r-md rounded-tr-md shadow-sm"
+      class="flex flex-col gap-[1rem] items-center justify-center h-full py-[7.5rem] px-[2.4rem] rounded-r-md rounded-tr-md shadow-sm"
     >
       <h2>بطاقة تهنئة بإسمك</h2>
       <div class="flex flex-col gap-3" dir="rtl">
@@ -110,8 +113,8 @@ const addText = () => {
     //get screen width
     const screenWidth = window.innerWidth
 
-    const left = screenWidth < 550 ? canvasWidth.value / 100 : canvasWidth.value / 100 + 50
-    const top = screenWidth < 550 ? 415 : 465
+    const left = screenWidth < 550 ? canvasWidth.value / 100 + 25 : canvasWidth.value / 100 + 50
+    const top = screenWidth < 550 ? screenWidth - 75 : 465
     const width = screenWidth < 550 ? 75 : 100
     const fontSize = screenWidth < 550 ? 17 : 35
 
