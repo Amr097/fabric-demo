@@ -61,7 +61,7 @@ onMounted(async () => {
   // Initialize Fabric.js canvas
   fabricCanvas = new fabric.Canvas(canvas.value, {
     width: canvasWidth.value,
-    height: 550,
+    height: canvasWidth.value,
     selection: false
   })
 
