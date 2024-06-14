@@ -1,39 +1,59 @@
 <template>
   <form
     @submit.prevent
-    class="flex flex-col items-center mt-6 xl:mt-0 md:justify-center sm:justify-normal sm:flex-row"
+    class="flex flex-col items-center mt-6 xl:mt-0 md:justify-center sm:justify-normal sm:flex-row h-full"
   >
     <canvas ref="canvas"></canvas>
 
     <div
-      class="flex flex-col gap-[1rem] items-center justify-center h-full py-[7.5rem] px-[2.4rem] rounded-r-md rounded-tr-md shadow-sm"
+      class="w-[38rem] bg-[#fff] flex flex-col gap-[2.4rem] items-center justify-center py-[4.8rem] px-[2.4rem] rounded-r-md rounded-tr-md shadow-sm"
     >
-      <h2>بطاقة تهنئة بإسمك</h2>
-      <div class="flex flex-col gap-3" dir="rtl">
-        <label for="" class="text-[1.4rem]">أدخل إسمك</label>
+      <img src="/logo.svg" alt="" class="w-[15rem] h-[8rem]" />
+      <h2 class="title">بطاقة تهنئة بإسمك</h2>
+      <div class="flex flex-col gap-3 w-full" dir="rtl" :class="{ hidden: !isHidden }">
         <input
           type="text"
           v-model="text"
           placeholder="الإسم"
-          class="text-[2rem] rounded-md border-solid border-[1px] px-5"
+          class="w-full text-[1.6rem] font-medium rounded-md border-solid border-[1px] border-[#6CBA81] px-[1.6rem] py-[1.2rem] outline-none"
           required
         />
       </div>
 
-      <div class="flex flex-col gap-[1rem] w-full mt-4">
+      <div class="flex flex-col gap-[1rem] w-full mt-4" :class="{ hidden: !isHidden }">
         <button
           @click="addText"
-          class="text-[1.6rem] bg-dark-400 text-light-900 px-5 py-2 rounded-md hover:bg-dark-300 w-full"
+          class="text-[1.6rem] bg-[#6cba81] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md hover:bg-[#6cba81ea] w-full"
           type="submit"
         >
-          إدخال
+          إنشاء
         </button>
+      </div>
+      <div :class="{ hidden: isHidden }" class="flex flex-col gap-[1rem] w-full mt-4">
         <button
           @click="downloadImage"
-          :disabled="isDisabled"
-          class="text-[1.6rem] bg-dark-400 text-light-900 px-5 py-2 rounded-md hover:bg-dark-300 w-full"
+          class="text-[1.6rem] bg-[#6cba81] hover:bg-[#6cba81ea] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md w-full"
         >
           تحميل
+        </button>
+        <!-- Add a button to prepare the image for sharing -->
+        <button @click="prepareImageForSharing">Prepare Image for Sharing</button>
+        <!-- Share buttons using vue-goodshare -->
+        <vue-goodshare-facebook
+          v-if="imageDataUrl"
+          :url="imageDataUrl"
+          title="Check out this image!"
+          description="This image was created using Fabric.js and shared via vue-goodshare."
+          hashtags="vuejs,fabricjs"
+        >
+          Share on Facebook
+        </vue-goodshare-facebook>
+        <button
+          @click="addText"
+          class="text-[1.6rem] text-primary-400 bg-[#bee1c8] hover:bg-[#bee1c8e4] px-[1.6rem] py-[0.8rem] rounded-md w-full"
+          type="submit"
+        >
+          إعادة إنشاء
         </button>
       </div>
     </div>
@@ -48,7 +68,9 @@ import { fabric } from 'fabric'
 const canvas = ref(null)
 const text = ref('')
 const isDisabled = ref(true)
+const isHidden = ref(true)
 const canvasWidth = ref(null)
+const imageDataUrl = ref(null)
 
 let fabricCanvas
 
@@ -110,18 +132,19 @@ const addText = () => {
       fabricCanvas.remove(obj)
     })
 
+    isHidden.value = false
     //get screen width
     const screenWidth = window.innerWidth
 
     const left = screenWidth < 550 ? canvasWidth.value / 100 + 25 : canvasWidth.value / 100 + 50
-    const top = screenWidth < 550 ? screenWidth - 75 : 465
-    const width = screenWidth < 550 ? 75 : 100
-    const fontSize = screenWidth < 550 ? 17 : 35
+    const top = screenWidth < 550 ? screenWidth - 75 : 400
+    const width = screenWidth < 550 ? 75 : 260
+    const fontSize = screenWidth < 550 ? 17 : 17
 
     const newText = new fabric.Textbox(text.value, {
-      left: left,
+      left: 366 - left,
       top: top,
-      fill: 'black',
+      fill: '#006450',
       fontSize: fontSize,
       width: width,
       splitByGrapheme: true, // Ensure text wraps correctly
@@ -146,8 +169,25 @@ const downloadImage = () => {
     link.click()
   }
 }
+
+// Convert canvas to data URL
+const prepareImageForSharing = () => {
+  if (fabricCanvas) {
+    imageDataUrl.value = fabricCanvas.toDataURL({
+      format: 'png',
+      quality: 1
+    })
+    console.log(typeof imageDataUrl.value)
+  }
+}
 </script>
 
 <style>
-/* Optional: Add your styles here */
+.title {
+  color: var(--dark-green, #006450);
+  text-align: right;
+  font-family: 'DIN Next LT Arabic';
+  font-size: 2.5rem;
+  font-weight: 400;
+}
 </style>

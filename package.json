@@ -16,7 +16,9 @@
     "pinia": "^2.1.7",
     "postcss": "^8.4.38",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-goodshare": "^1.6.1",
+    "vue-router": "^4.3.0",
+    "vue-social-sharing": "^4.0.0-alpha4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
