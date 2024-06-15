@@ -230,27 +230,27 @@ const shareImage = async () => {
         </button>
       </div>
       <div :class="{ hidden: isHidden }" class="flex flex-col gap-[1rem] w-full mt-4">
-        <button
+        <span
           @click="downloadImage"
-          class="text-[1.6rem] bg-[#6cba81] hover:bg-[#6cba81ea] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md w-full"
+          class="text-center cursor-pointer text-[1.6rem] bg-[#6cba81] hover:bg-[#6cba81ea] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md w-full"
         >
           تحميل
-        </button>
+        </span>
 
-        <button
+        <span
           @click="shareImage"
-          class="text-[1.6rem] bg-[#006450] hover:bg-[#006450d0] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md w-full"
+          class="text-center cursor-pointer text-[1.6rem] bg-[#006450] hover:bg-[#006450d0] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md w-full"
         >
           مشاركة
-        </button>
+        </span>
 
-        <button
+        <span
           @click="redo"
-          class="text-[1.6rem] text-primary-400 bg-[#bee1c8] hover:bg-[#bee1c8e4] px-[1.6rem] py-[0.8rem] rounded-md w-full"
+          class="text-center cursor-pointer text-[1.6rem] text-primary-400 bg-[#bee1c8] hover:bg-[#bee1c8e4] px-[1.6rem] py-[0.8rem] rounded-md w-full"
           type="submit"
         >
           إعادة إنشاء
-        </button>
+        </span>
       </div>
     </div>
   </form>
