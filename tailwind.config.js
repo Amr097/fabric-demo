@@ -3,9 +3,7 @@ export default {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      fontFamily: {
-        display: ["'Roboto Flex'"]
-      }
+      fontFamily: { DinNextLtArabic: ['var(--din-next-lt-arabic)'] }
     },
 
     colors: {

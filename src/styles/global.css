@@ -3,23 +3,17 @@
 @import 'tailwindcss/utilities';
 
 @font-face {
-  font-family: Droid Arabic Kufi;
-  src: url(/src/assets/fonts/Droid-Arabic-Kufi-Regular.ttf);
+  font-family: DinNextLtArabic;
+  src: url(/src/assets/fonts/DINNextLTArabic-Regular-3.ttf);
 }
 
 *,
 *::before,
 *::after {
+  @apply font-DinNextLtArabic;
   margin: 0;
   padding: 0;
   box-sizing: inherit;
-  /* font-family: 'SF Pro Display Regular', sans-serif; */
-  font-family:
-    Droid Arabic Kufi,
-    Verdana,
-    Geneva,
-    Tahoma,
-    sans-serif;
 }
 
 html {

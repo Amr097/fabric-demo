@@ -91,9 +91,9 @@ const addText = () => {
     const screenWidth = window.innerWidth
 
     const left = screenWidth < 550 ? 153 : 230
-    const top = screenWidth < 550 ? screenWidth - 38 : 490
+    const top = screenWidth < 550 ? screenWidth - 39 : 490
     const width = screenWidth < 550 ? 135 : 210
-    const fontSize = screenWidth < 550 ? 10 : 15.5
+    const fontSize = screenWidth < 550 ? 9 : 15.5
 
     const newText = new fabric.Textbox(text.value, {
       left: left,
