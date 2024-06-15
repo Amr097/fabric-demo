@@ -129,7 +129,7 @@ const downloadImage = () => {
 
     const link = document.createElement('a')
     link.href = dataURL
-    link.download = 'image.png'
+    link.download = 'sic-eid-adha-mubarak.png'
     link.click()
   }
 }
@@ -199,7 +199,7 @@ const shareImage = async () => {
 
 <template>
   <form
-    @submit.prevent
+    @submit.prevent="createText"
     class="flex flex-col items-center md:justify-center sm:justify-normal sm:flex-row h-auto sm:h-full"
   >
     <canvas ref="canvas" class="z-20 relative"></canvas>
@@ -223,7 +223,6 @@ const shareImage = async () => {
 
       <div class="flex flex-col gap-[1rem] w-full mt-4" :class="{ hidden: !isHidden }">
         <button
-          @click="createText"
           class="text-[1.6rem] bg-[#6cba81] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md hover:bg-[#6cba81ea] w-full"
           type="submit"
         >
