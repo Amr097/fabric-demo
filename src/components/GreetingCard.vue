@@ -90,7 +90,7 @@ const addText = () => {
     const screenWidth = window.innerWidth
 
     const left = screenWidth < 550 ? 135 : 230
-    const top = screenWidth < 550 ? 285 : 490
+    const top = screenWidth < 550 ? 284.5 : 490
     const width = screenWidth < 550 ? 120 : 210
     const fontSize = screenWidth < 550 ? 10 : 15.5
 
