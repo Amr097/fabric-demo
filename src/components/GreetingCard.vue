@@ -103,13 +103,13 @@ const downloadImage = () => {
     // Set the canvas to a higher resolution
     fabricCanvas.setDimensions(
       {
-        width: originalWidth * 2,
-        height: originalHeight * 2
+        width: originalWidth * 4,
+        height: originalHeight * 4
       },
       { backstoreOnly: true }
     )
 
-    fabricCanvas.setZoom(2)
+    fabricCanvas.setZoom(4)
 
     const dataURL = fabricCanvas.toDataURL({
       format: 'png',
@@ -147,13 +147,13 @@ const shareImage = async () => {
     // Set the canvas to a higher resolution
     fabricCanvas.setDimensions(
       {
-        width: originalWidth * 2,
-        height: originalHeight * 2
+        width: originalWidth * 4,
+        height: originalHeight * 4
       },
       { backstoreOnly: true }
     )
 
-    fabricCanvas.setZoom(2)
+    fabricCanvas.setZoom(4)
 
     fabricCanvas.renderAll()
 
