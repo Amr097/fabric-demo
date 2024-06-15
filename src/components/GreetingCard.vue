@@ -190,7 +190,7 @@ const shareImage = async () => {
           v-model="text"
           placeholder="الإسم"
           class="w-full text-[1.6rem] font-medium rounded-md border-solid border-[1px] border-[#6CBA81] px-[1.6rem] py-[1.2rem] outline-none"
-          maxlength="25"
+          maxlength="21"
           required
           @input="addText"
         />
