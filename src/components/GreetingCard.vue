@@ -90,10 +90,10 @@ const addText = () => {
     //get screen width
     const screenWidth = window.innerWidth
 
-    const left = screenWidth < 550 ? 158 : 230
-    const top = screenWidth < 550 ? screenWidth - 41 : 490
-    const width = screenWidth < 550 ? 140 : 210
-    const fontSize = screenWidth < 550 ? 10.35 : 15.5
+    const left = screenWidth < 550 ? 153 : 230
+    const top = screenWidth < 550 ? screenWidth - 38 : 490
+    const width = screenWidth < 550 ? 135 : 210
+    const fontSize = screenWidth < 550 ? 10 : 15.5
 
     const newText = new fabric.Textbox(text.value, {
       left: left,
@@ -163,9 +163,9 @@ const downloadImage = () => {
 //     console.error('No image URL available to share.')
 //   }
 // }
-// const redo = () => {
-//   isHidden.value = true
-// }
+const redo = () => {
+  isHidden.value = true
+}
 
 const shareImage = async () => {
   if (fabricCanvas) {
