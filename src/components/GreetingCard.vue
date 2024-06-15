@@ -185,7 +185,7 @@ const shareImage = async () => {
         await navigator.share({
           files: filesArray,
           title: 'عبد مبارك',
-          text: 'كل عام و انتم بخير'
+          text: 'كل عام و أنتم بخير'
         })
       } catch (err) {
         console.error('Error sharing', err)
