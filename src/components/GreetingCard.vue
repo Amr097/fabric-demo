@@ -85,7 +85,6 @@ const addText = () => {
       fabricCanvas.remove(obj)
     })
 
-    isHidden.value = false
     //get screen width
     const screenWidth = window.innerWidth
 
@@ -106,6 +105,10 @@ const addText = () => {
     })
     fabricCanvas.add(newText)
   }
+}
+
+const createText = () => {
+  isHidden.value = false
 }
 
 // Method to download the image
@@ -218,12 +221,13 @@ const shareImage = async () => {
           class="w-full text-[1.6rem] font-medium rounded-md border-solid border-[1px] border-[#6CBA81] px-[1.6rem] py-[1.2rem] outline-none"
           maxlength="25"
           required
+          @input="addText"
         />
       </div>
 
       <div class="flex flex-col gap-[1rem] w-full mt-4" :class="{ hidden: !isHidden }">
         <button
-          @click="addText"
+          @click="createText"
           class="text-[1.6rem] bg-[#6cba81] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md hover:bg-[#6cba81ea] w-full"
           type="submit"
         >
