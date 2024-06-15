@@ -25,7 +25,6 @@ const canvas = ref(null)
 const text = ref('')
 const isHidden = ref(true)
 const canvasWidth = ref(null)
-const downloadUrl = ref(null)
 
 let fabricCanvas
 
@@ -36,7 +35,7 @@ onMounted(async () => {
   //get screen width
   const screenWidth = window.innerWidth
 
-  canvasWidth.value = screenWidth < 550 ? screenWidth : 550
+  canvasWidth.value = screenWidth < 550 ? 320 : 550
 
   // Initialize Fabric.js canvas
   fabricCanvas = new fabric.Canvas(canvas.value, {
@@ -90,10 +89,10 @@ const addText = () => {
     //get screen width
     const screenWidth = window.innerWidth
 
-    const left = screenWidth < 550 ? 153 : 230
-    const top = screenWidth < 550 ? screenWidth - 39 : 490
-    const width = screenWidth < 550 ? 135 : 210
-    const fontSize = screenWidth < 550 ? 9 : 15.5
+    const left = screenWidth < 550 ? 135 : 230
+    const top = screenWidth < 550 ? 285 : 490
+    const width = screenWidth < 550 ? 120 : 210
+    const fontSize = screenWidth < 550 ? 10 : 15.5
 
     const newText = new fabric.Textbox(text.value, {
       left: left,
@@ -207,7 +206,7 @@ const shareImage = async () => {
     <canvas ref="canvas" class="z-20 relative"></canvas>
 
     <div
-      class="w-full sm:w-[38rem] bg-[#fff] flex flex-col gap-[2.4rem] items-center justify-center py-[4.8rem] px-[2.4rem] rounded-r-md rounded-tr-md shadow-sm"
+      class="w-[320px] sm:w-[38rem] bg-[#fff] flex flex-col gap-[2.4rem] items-center justify-center py-[3rem] sm:py-[4.8rem] px-[2.4rem] rounded-r-md rounded-tr-md shadow-sm"
     >
       <img src="/logo.svg" alt="" class="w-[15rem] h-[8rem]" />
       <h2 class="title">بطاقة تهنئة بإسمك</h2>
