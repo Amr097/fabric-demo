@@ -98,6 +98,7 @@ const downloadImage = () => {
   if (fabricCanvas) {
     const originalWidth = fabricCanvas.width
     const originalHeight = fabricCanvas.height
+    const originalZoom = fabricCanvas.getZoom()
 
     // Set the canvas to a higher resolution
     fabricCanvas.setDimensions(
@@ -114,6 +115,18 @@ const downloadImage = () => {
       format: 'png',
       quality: 1
     })
+
+    // Restore the original canvas dimensions
+    fabricCanvas.setDimensions(
+      {
+        width: originalWidth,
+        height: originalHeight
+      },
+      { backstoreOnly: true }
+    )
+
+    fabricCanvas.setZoom(originalZoom)
+
     const link = document.createElement('a')
     link.href = dataURL
     link.download = 'image.png'
@@ -129,6 +142,7 @@ const shareImage = async () => {
   if (fabricCanvas) {
     const originalWidth = fabricCanvas.width
     const originalHeight = fabricCanvas.height
+    const originalZoom = fabricCanvas.getZoom()
 
     // Set the canvas to a higher resolution
     fabricCanvas.setDimensions(
@@ -150,10 +164,21 @@ const shareImage = async () => {
 
     const blob = await (await fetch(dataURL)).blob()
     const filesArray = [
-      new File([blob], 'image.png', {
+      new File([blob], 'sic-eid-adha-mubarak.png', {
         type: blob.type
       })
     ]
+
+    // Restore the original canvas dimensions
+    fabricCanvas.setDimensions(
+      {
+        width: originalWidth,
+        height: originalHeight
+      },
+      { backstoreOnly: true }
+    )
+
+    fabricCanvas.setZoom(originalZoom)
 
     if (navigator.canShare && navigator.canShare({ files: filesArray })) {
       try {
