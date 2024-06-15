@@ -96,6 +96,20 @@ const createText = () => {
 // Method to download the image
 const downloadImage = () => {
   if (fabricCanvas) {
+    const originalWidth = fabricCanvas.width
+    const originalHeight = fabricCanvas.height
+
+    // Set the canvas to a higher resolution
+    fabricCanvas.setDimensions(
+      {
+        width: originalWidth * 2,
+        height: originalHeight * 2
+      },
+      { backstoreOnly: true }
+    )
+
+    fabricCanvas.setZoom(2)
+
     const dataURL = fabricCanvas.toDataURL({
       format: 'png',
       quality: 1
