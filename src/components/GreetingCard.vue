@@ -2,24 +2,6 @@
 import { ref, onMounted } from 'vue'
 import { fabric } from 'fabric'
 
-//share popup
-// const popup = ref({
-//   active: false,
-//   id: null,
-//   show: async (e) => {
-//     popup.value.active = e.target.checked
-//     if (e.target.checked) popup.value.id = e.target.id
-//   },
-//   close: (id) => {
-//     const checkbox = document.querySelector(`#${id}`)
-//     checkbox.checked = false
-//     popup.value.active = checkbox.checked
-//   }
-// })
-// const closePopup = () => {
-//   popup.value.close(`popup`)
-// }
-
 // Define reactive references
 const canvas = ref(null)
 const text = ref('')
@@ -125,46 +107,6 @@ const downloadImage = () => {
   }
 }
 
-//Upload to firebase storage
-// const uploadImage = async () => {
-//   if (fabricCanvas) {
-//     const dataURL = fabricCanvas.toDataURL({
-//       format: 'png',
-//       quality: 1
-//     })
-
-//     const blob = await fetch(dataURL).then((res) => res.blob())
-
-//     const storageReference = storageRef(storage, `images/${Date.now()}_image.png`)
-
-//     try {
-//       await uploadBytes(storageReference, blob)
-//       const url = await getDownloadURL(storageReference)
-//       dataURL = url
-//       console.log('Image uploaded successfully:', url)
-//     } catch (error) {
-//       console.error('Error uploading image:', error)
-//     }
-//   }
-// }
-
-// Share image
-// const shareImage = async (type) => {
-//   if (downloadUrl.value) {
-//     const message = `عيد مبارك. ${downloadUrl.value}`
-//     if (type === 'twitter') {
-//       // Share on Twitter
-//       const twitterDmUrl = `https://twitter.com/messages/compose?text=${encodeURIComponent(message)}`
-//       window.open(twitterDmUrl, '_blank')
-//     } else if (type === 'whatsapp') {
-//       // Share on WhatsApp
-//       const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`
-//       window.open(whatsappUrl, '_blank')
-//     }
-//   } else {
-//     console.error('No image URL available to share.')
-//   }
-// }
 const redo = () => {
   isHidden.value = true
 }
