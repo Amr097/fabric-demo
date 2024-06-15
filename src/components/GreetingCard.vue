@@ -1,76 +1,31 @@
-<template>
-  <form
-    @submit.prevent
-    class="flex flex-col items-center mt-6 xl:mt-0 md:justify-center sm:justify-normal sm:flex-row h-full"
-  >
-    <canvas ref="canvas"></canvas>
-
-    <div
-      class="w-[38rem] bg-[#fff] flex flex-col gap-[2.4rem] items-center justify-center py-[4.8rem] px-[2.4rem] rounded-r-md rounded-tr-md shadow-sm"
-    >
-      <img src="/logo.svg" alt="" class="w-[15rem] h-[8rem]" />
-      <h2 class="title">بطاقة تهنئة بإسمك</h2>
-      <div class="flex flex-col gap-3 w-full" dir="rtl" :class="{ hidden: !isHidden }">
-        <input
-          type="text"
-          v-model="text"
-          placeholder="الإسم"
-          class="w-full text-[1.6rem] font-medium rounded-md border-solid border-[1px] border-[#6CBA81] px-[1.6rem] py-[1.2rem] outline-none"
-          required
-        />
-      </div>
-
-      <div class="flex flex-col gap-[1rem] w-full mt-4" :class="{ hidden: !isHidden }">
-        <button
-          @click="addText"
-          class="text-[1.6rem] bg-[#6cba81] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md hover:bg-[#6cba81ea] w-full"
-          type="submit"
-        >
-          إنشاء
-        </button>
-      </div>
-      <div :class="{ hidden: isHidden }" class="flex flex-col gap-[1rem] w-full mt-4">
-        <button
-          @click="downloadImage"
-          class="text-[1.6rem] bg-[#6cba81] hover:bg-[#6cba81ea] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md w-full"
-        >
-          تحميل
-        </button>
-        <!-- Add a button to prepare the image for sharing -->
-        <button @click="prepareImageForSharing">Prepare Image for Sharing</button>
-        <!-- Share buttons using vue-goodshare -->
-        <vue-goodshare-facebook
-          v-if="imageDataUrl"
-          :url="imageDataUrl"
-          title="Check out this image!"
-          description="This image was created using Fabric.js and shared via vue-goodshare."
-          hashtags="vuejs,fabricjs"
-        >
-          Share on Facebook
-        </vue-goodshare-facebook>
-        <button
-          @click="addText"
-          class="text-[1.6rem] text-primary-400 bg-[#bee1c8] hover:bg-[#bee1c8e4] px-[1.6rem] py-[0.8rem] rounded-md w-full"
-          type="submit"
-        >
-          إعادة إنشاء
-        </button>
-      </div>
-    </div>
-  </form>
-</template>
-
 <script setup>
 import { ref, onMounted } from 'vue'
 import { fabric } from 'fabric'
 
+//share popup
+// const popup = ref({
+//   active: false,
+//   id: null,
+//   show: async (e) => {
+//     popup.value.active = e.target.checked
+//     if (e.target.checked) popup.value.id = e.target.id
+//   },
+//   close: (id) => {
+//     const checkbox = document.querySelector(`#${id}`)
+//     checkbox.checked = false
+//     popup.value.active = checkbox.checked
+//   }
+// })
+// const closePopup = () => {
+//   popup.value.close(`popup`)
+// }
+
 // Define reactive references
 const canvas = ref(null)
 const text = ref('')
-const isDisabled = ref(true)
 const isHidden = ref(true)
 const canvasWidth = ref(null)
-const imageDataUrl = ref(null)
+const downloadUrl = ref(null)
 
 let fabricCanvas
 
@@ -81,7 +36,7 @@ onMounted(async () => {
   //get screen width
   const screenWidth = window.innerWidth
 
-  canvasWidth.value = screenWidth < 550 ? screenWidth - 20 : 550
+  canvasWidth.value = screenWidth < 550 ? screenWidth : 550
 
   // Initialize Fabric.js canvas
   fabricCanvas = new fabric.Canvas(canvas.value, {
@@ -125,7 +80,6 @@ onMounted(async () => {
 })
 
 // Method to add text to the canvas
-
 const addText = () => {
   if (fabricCanvas) {
     fabricCanvas.getObjects('textbox').forEach((obj) => {
@@ -136,15 +90,15 @@ const addText = () => {
     //get screen width
     const screenWidth = window.innerWidth
 
-    const left = screenWidth < 550 ? canvasWidth.value / 100 + 25 : canvasWidth.value / 100 + 50
-    const top = screenWidth < 550 ? screenWidth - 75 : 400
-    const width = screenWidth < 550 ? 75 : 260
-    const fontSize = screenWidth < 550 ? 17 : 17
+    const left = screenWidth < 550 ? 158 : 230
+    const top = screenWidth < 550 ? screenWidth - 41 : 490
+    const width = screenWidth < 550 ? 140 : 210
+    const fontSize = screenWidth < 550 ? 10.35 : 15.5
 
     const newText = new fabric.Textbox(text.value, {
-      left: 366 - left,
+      left: left,
       top: top,
-      fill: '#006450',
+      fill: 'white',
       fontSize: fontSize,
       width: width,
       splitByGrapheme: true, // Ensure text wraps correctly
@@ -152,7 +106,6 @@ const addText = () => {
       selectable: false
     })
     fabricCanvas.add(newText)
-    isDisabled.value = false
   }
 }
 
@@ -170,19 +123,142 @@ const downloadImage = () => {
   }
 }
 
-// Convert canvas to data URL
-const prepareImageForSharing = () => {
+//Upload to firebase storage
+// const uploadImage = async () => {
+//   if (fabricCanvas) {
+//     const dataURL = fabricCanvas.toDataURL({
+//       format: 'png',
+//       quality: 1
+//     })
+
+//     const blob = await fetch(dataURL).then((res) => res.blob())
+
+//     const storageReference = storageRef(storage, `images/${Date.now()}_image.png`)
+
+//     try {
+//       await uploadBytes(storageReference, blob)
+//       const url = await getDownloadURL(storageReference)
+//       dataURL = url
+//       console.log('Image uploaded successfully:', url)
+//     } catch (error) {
+//       console.error('Error uploading image:', error)
+//     }
+//   }
+// }
+
+// Share image
+// const shareImage = async (type) => {
+//   if (downloadUrl.value) {
+//     const message = `عيد مبارك. ${downloadUrl.value}`
+//     if (type === 'twitter') {
+//       // Share on Twitter
+//       const twitterDmUrl = `https://twitter.com/messages/compose?text=${encodeURIComponent(message)}`
+//       window.open(twitterDmUrl, '_blank')
+//     } else if (type === 'whatsapp') {
+//       // Share on WhatsApp
+//       const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`
+//       window.open(whatsappUrl, '_blank')
+//     }
+//   } else {
+//     console.error('No image URL available to share.')
+//   }
+// }
+// const redo = () => {
+//   isHidden.value = true
+// }
+
+const shareImage = async () => {
   if (fabricCanvas) {
-    imageDataUrl.value = fabricCanvas.toDataURL({
+    fabricCanvas.renderAll()
+    const dataURL = fabricCanvas.toDataURL({
       format: 'png',
       quality: 1
     })
-    console.log(typeof imageDataUrl.value)
+
+    const blob = await (await fetch(dataURL)).blob()
+    const filesArray = [
+      new File([blob], 'image.png', {
+        type: blob.type
+      })
+    ]
+
+    if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+      try {
+        await navigator.share({
+          files: filesArray,
+          title: 'عبد مبارك',
+          text: 'كل عام و انتم بخير'
+        })
+      } catch (err) {
+        console.error('Error sharing', err)
+      }
+    } else {
+      alert('Your browser does not support sharing files.')
+    }
   }
 }
 </script>
 
-<style>
+<template>
+  <form
+    @submit.prevent
+    class="flex flex-col items-center md:justify-center sm:justify-normal sm:flex-row h-auto sm:h-full"
+  >
+    <canvas ref="canvas" class="z-20 relative"></canvas>
+
+    <div
+      class="w-full sm:w-[38rem] bg-[#fff] flex flex-col gap-[2.4rem] items-center justify-center py-[4.8rem] px-[2.4rem] rounded-r-md rounded-tr-md shadow-sm"
+    >
+      <img src="/logo.svg" alt="" class="w-[15rem] h-[8rem]" />
+      <h2 class="title">بطاقة تهنئة بإسمك</h2>
+      <div class="flex flex-col gap-3 w-full" dir="rtl" :class="{ hidden: !isHidden }">
+        <input
+          type="text"
+          v-model="text"
+          placeholder="الإسم"
+          class="w-full text-[1.6rem] font-medium rounded-md border-solid border-[1px] border-[#6CBA81] px-[1.6rem] py-[1.2rem] outline-none"
+          maxlength="25"
+          required
+        />
+      </div>
+
+      <div class="flex flex-col gap-[1rem] w-full mt-4" :class="{ hidden: !isHidden }">
+        <button
+          @click="addText"
+          class="text-[1.6rem] bg-[#6cba81] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md hover:bg-[#6cba81ea] w-full"
+          type="submit"
+        >
+          إنشاء
+        </button>
+      </div>
+      <div :class="{ hidden: isHidden }" class="flex flex-col gap-[1rem] w-full mt-4">
+        <button
+          @click="downloadImage"
+          class="text-[1.6rem] bg-[#6cba81] hover:bg-[#6cba81ea] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md w-full"
+        >
+          تحميل
+        </button>
+
+        <button
+          @click="shareImage"
+          class="text-[1.6rem] bg-[#006450] hover:bg-[#006450d0] text-light-900 px-[1.6rem] py-[0.8rem] rounded-md w-full"
+        >
+          مشاركة
+        </button>
+
+        <button
+          @click="redo"
+          class="text-[1.6rem] text-primary-400 bg-[#bee1c8] hover:bg-[#bee1c8e4] px-[1.6rem] py-[0.8rem] rounded-md w-full"
+          type="submit"
+        >
+          إعادة إنشاء
+        </button>
+      </div>
+    </div>
+  </form>
+</template>
+
+<style lang="postcss">
 .title {
   color: var(--dark-green, #006450);
   text-align: right;
