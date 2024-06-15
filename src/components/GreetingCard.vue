@@ -12,7 +12,7 @@ let fabricCanvas
 
 // Dynamically import Fabric.js and the image
 onMounted(async () => {
-  const imgSrc = new URL('/image.png', import.meta.url).href // Adjust the path to your image file
+  const imgSrc = new URL('/image.webp', import.meta.url).href // Adjust the path to your image file
 
   //get screen width
   const screenWidth = window.innerWidth
